@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login Page | Nelfix
+{% endblock title %}
+
+{% block contents %}
+    <h2 style="font-family: Arial">Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Login</button>
+    </form>
+    <a href="{% url 'user:register' %}">I don't have an account</a>
+{% endblock %}
