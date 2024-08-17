@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Home | Nelfix Film
+{% endblock title %}
+
+{% block css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block contents %}
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 mb-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'film:home' %}" class="text-white text-xl font-bold">Nelfix</a>
+            <div>
+                {% if user.is_authenticated %}
+                    <span class="text-white mr-4">
+                        Hello, {{ user.username }} | Balance: ${{ user.profile.balance }}
+                    </span>
+                    <form method="POST" action="{% url 'user:logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'user:login' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                        Login / Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <h1 class="text-3xl font-bold mb-4">Browse Films</h1>
+    <ul class="list-none pl-5">
+        {% for film in films %}
+            <li class="mb-2">
+                <a href="#" class="text-blue-500 hover:underline">
+                    {{ film.title }}
+                </a>
+                - {{ film.release_year }}
+            </li>
+        {% empty %}
+            <li>No films available.</li>
+        {% endfor %}
+    </ul>
+{% endblock contents %}

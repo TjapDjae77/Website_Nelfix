@@ -1,16 +1,61 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Register Page | Nelfix
 {% endblock title %}
 
+{% block css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock css %}
+
 {% block contents %}
-    <h2>Register</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <a href="{% url 'user:login' %}">Already have an account?</a>
+    <div class="min-h-screen bg-gray-600 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Create Your Account</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.username.label_tag }}</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <p class="text-red-600 text-sm">{{ form.email.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.password1.label_tag }}</label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.password2.label_tag }}</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.bio.label_tag }}</label>
+                    {{ form.bio }}
+                    {{ form.bio.errors }}
+                </div>
+
+                <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700">
+                    Register
+                </button>
+            </form>
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Already have an account? 
+                <a href="{% url 'user:login' %}" class="text-indigo-600 hover:text-indigo-200">Sign in</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}
 

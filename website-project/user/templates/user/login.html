@@ -1,16 +1,49 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Login Page | Nelfix
 {% endblock title %}
 
-{% block contents %}
-    <h2 style="font-family: Arial">Login</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+{% block css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock css %}
 
-        <button type="submit">Login</button>
-    </form>
-    <a href="{% url 'user:register' %}">I don't have an account</a>
+{% block contents %}
+    <div class="min-h-screen bg-gray-600 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Sign in</h2>
+            
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        <div class="text-red-600">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.username.label_tag }}</label>
+                    <p class="">{{ form.username }}</p>
+                    {{ form.username.errors }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.password.label_tag }}</label>
+                    {{ form.password }}
+                    {{ form.password.errors }}
+                </div>
+
+                <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700">
+                    Login
+                </button>
+            </form>
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Don't have an account? 
+                <a href="{% url 'user:register' %}" class="text-indigo-600 hover:text-indigo-200">Register</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}

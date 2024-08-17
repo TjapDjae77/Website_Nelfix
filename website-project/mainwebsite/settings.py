@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'film',
     'rest_framework',
 ]
 
@@ -127,3 +128,6 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login URL
+LOGIN_URL = '/user/login/'

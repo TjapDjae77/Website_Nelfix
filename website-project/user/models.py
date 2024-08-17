@@ -22,21 +22,7 @@ from django.contrib.auth.models import User
 #     def __str__(self) -> str:
 #         return "{}. {}".format(self.id, self.judul)
 
-# class Movie(models.Model):
-#     title = models.CharField(max_length=150)
-#     description = models.TextField()
-#     director = models.CharField(max_length=80)
-#     release_year = models.PositiveIntegerField()
-#     genre = models.JSONField(default=list)
-#     price = models.IntegerField()
-#     duration = models.PositiveIntegerField(help_text="Duration in seconds")
-#     video_url = models.URLField(blank=True, null=True)
-#     cover_image_url = models.URLField(blank=True, null=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
 
-#     def __str__(self) -> str:
-#         return self.title
     
 # class CustomUser(AbstractUser):
 #     balance = models.IntegerField()

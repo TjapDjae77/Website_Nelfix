@@ -10,10 +10,10 @@
 
     {% endblock title %}
     </title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
-    
+<body class="{% block body_class %}{% endblock body_class %}">
     {% block contents %}
 
     {% endblock contents %}
