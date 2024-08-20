@@ -5,10 +5,6 @@
     Login Page | Nelfix
 {% endblock title %}
 
-{% block css %}
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-{% endblock css %}
-
 {% block contents %}
     <div class="min-h-screen bg-gray-600 flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -25,7 +21,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-4">
-                    <label class="block text-base font-medium text-gray-700">{{ form.username.label_tag }}</label>
+                    <label class="block text-base font-medium text-gray-700">Email/Username:</label>
                     <p class="">{{ form.username }}</p>
                     {{ form.username.errors }}
                 </div>

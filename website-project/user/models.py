@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from film.models import Film
 
 # Create your models here.
 # class PostModel(models.Model):
@@ -47,7 +48,19 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.PositiveIntegerField(default=0)
-    bio = models.TextField(blank=True, null=True)
+    films = models.ManyToManyField(Film, blank=True, related_name='purchased_by')
 
     def __str__(self):
         return f'{self.user.username} Profile'
+    
+    def add_balance(self, increment):
+        self.balance += increment
+        self.save()
+
+    def purchase_film(self, film):
+        if self.balance >= film.price:
+            self.films.add(film)
+            self.balance -= film.price
+            self.save()
+            return True
+        return False

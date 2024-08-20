@@ -5,10 +5,6 @@
     Register Page | Nelfix
 {% endblock title %}
 
-{% block css %}
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-{% endblock css %}
-
 {% block contents %}
     <div class="min-h-screen bg-gray-600 flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -16,17 +12,29 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <p class="text-red-600 text-sm">{{ form.email.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
                     <label class="block text-base font-medium text-gray-700">{{ form.username.label_tag }}</label>
                     {{ form.username }}
                     {{ form.username.errors }}
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-base font-medium text-gray-700">{{ form.email.label_tag }}</label>
-                    {{ form.email }}
-                    {% if form.email.errors %}
-                        <p class="text-red-600 text-sm">{{ form.email.errors }}</p>
-                    {% endif %}
+                    <label class="block text-base font-medium text-gray-700">{{ form.first_name.label_tag }}</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-base font-medium text-gray-700">{{ form.last_name.label_tag }}</label>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
                 </div>
 
                 <div class="mb-4">
@@ -39,12 +47,6 @@
                     <label class="block text-base font-medium text-gray-700">{{ form.password2.label_tag }}</label>
                     {{ form.password2 }}
                     {{ form.password2.errors }}
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-base font-medium text-gray-700">{{ form.bio.label_tag }}</label>
-                    {{ form.bio }}
-                    {{ form.bio.errors }}
                 </div>
 
                 <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700">

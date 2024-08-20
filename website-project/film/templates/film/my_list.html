@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    My List | Nelfix Film
+{% endblock title %}
+
+{% block contents %}
+    {% comment %} <h1 class="text-3xl font-bold mb-4">My List</h1>
+    {% if films %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for film in films %}
+                <a href="{% url 'film:film_detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    <img src="{% static film.cover_image_url %}" alt="{{ film.title }}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h2 class="text-xl font-bold mb-2">{{ film.title }}</h2>
+                        <p class="text-gray-600">{{ film.release_year }}</p>
+                        <p class="mt-2">{{ film.description|truncatewords:20 }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't purchased any films yet.</p>
+    {% endif %} {% endcomment %}
+    <nav class="bg-gray-800 p-4 mb-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Bagian Kiri -->
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'film:home' %}" class="text-red-600 text-xl font-bold">Nelfix</a>
+                <a href="{% url 'film:home' %}" class="text-white hover:text-gray-400">Home</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user:profile' %}" class="text-white hover:text-gray-400">Profile</a>
+                    <a href="{% url 'film:my_list' %}" class="text-white hover:text-gray-400">My List</a>
+                {% endif %}
+            </div>
+    
+            <!-- Bagian Kanan -->
+            <div class="flex items-center space-x-4">
+                {% if user.is_authenticated %}
+                    <span class="text-white">
+                        Hello, {{ user.username }} | 🪙 {{ user.profile.balance }}
+                    </span>
+                    <form method="POST" action="{% url 'user:logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'user:login' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                        Login / Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- My List Content -->
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-6">My List</h1>
+
+        {% if films %}
+            {% comment %} <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {% for film in films %}
+                    <div class="bg-gray-800 text-white p-4 rounded-lg shadow-lg">
+                        <img src="{% static film.cover_image_url %}" alt="{{ film.title }}" class="mb-4 w-full h-48 object-cover rounded-lg">
+                        <h2 class="text-lg font-bold">{{ film.title }} ({{ film.release_year }})</h2>
+                        <p class="mt-2">Directed by: {{ film.director }}</p>
+                        <a href="{% url 'film:film_detail' film.id %}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                            View Details
+                        </a>
+                    </div>
+                {% endfor %}
+            </div> {% endcomment %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
+                {% for film in films %}
+                    <a href="{% url 'film:film-detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <div class="group relative bg-gray-800 text-white p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                            <img src="{{ film.cover_image.url }}" alt="{{ film.title }}" class="w-full h-48 object-cover rounded-lg">
+                            <div class="mt-4">
+                                <h2 class="text-lg font-semibold">{{ film.title }} ({{ film.release_year }})</h2>
+                                <div class="flex space-x-2 mt-2">
+                                    {% for genre in film.genre.all %}
+                                        <span class="bg-gray-600 text-sm rounded-full px-2 py-1">{{ genre.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                <p class="mt-2 text-sm text-gray-400 group-hover:opacity-0 transition-opacity duration-300">Directed by: {{ film.director }}</p>
+                                {% if not film in user.profile.films.all %}
+                                <div class="absolute inset-0 bg-gray-900 bg-opacity-75 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p class="text-lg font-semibold">{{ film.price }}🪙</p>
+                                    <p class="mt-2 text-sm text-green-400">Buy Now</p>
+                                </div>
+                                {% else %}
+                                <div class="absolute inset-0 bg-gray-900 bg-opacity-75 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p class="text-lg font-semibold">See Details</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-white">You have not purchased any films yet.</p>
+        {% endif %}
+    </div>
+{% endblock contents %}
