@@ -35,7 +35,7 @@ class FilmCreateSerializer(serializers.ModelSerializer):
         
         # Buat instance Film dengan data yang telah divalidasi
         film = Film.objects.create(**validated_data)
-        print(validated_data)
+        
         return film
 
     def to_representation(self, instance):
@@ -48,7 +48,28 @@ class FilmCreateSerializer(serializers.ModelSerializer):
         representation.pop('video', None)
         representation.pop('cover_image', None)
 
-        return representation
+        duration_str = representation.get('duration')
+        if duration_str:
+            hours, minutes, seconds = map(int, duration_str.split(':'))
+            duration_in_seconds = hours * 3600 + minutes * 60 + seconds
+            representation['duration'] = duration_in_seconds
+
+        data_order = {
+            'id': representation.get('id'),
+            'title': representation.get('title'),
+            'description': representation.get('description'),
+            'director': representation.get('director'),
+            'release_year': representation.get('release_year'),
+            'genre': representation.get('genre'),
+            'price': representation.get('price'),
+            'duration': representation.get('duration'),
+            'video_url': representation.get('video_url'),
+            'cover_image_url': representation.get('cover_image_url'),
+            'created_at': representation.get('created_at'),
+            'updated_at': representation.get('updated_at')
+        }
+
+        return data_order
 
 class FilmListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,7 +81,21 @@ class FilmListSerializer(serializers.ModelSerializer):
         representation['id'] = str(representation['id'])
         representation['cover_image_url'] = representation.pop('cover_image')
         representation['duration'] = self.convert_duration_to_number(representation['duration'])
-        return representation
+        
+        data_order = {
+            'id': representation.get('id'),
+            'title': representation.get('title'),
+            'director': representation.get('director'),
+            'release_year': representation.get('release_year'),
+            'genre': representation.get('genre'),
+            'price': representation.get('price'),
+            'duration': representation.get('duration'),
+            'cover_image_url': representation.get('cover_image_url'),
+            'created_at': representation.get('created_at'),
+            'updated_at': representation.get('updated_at')
+        }
+        
+        return data_order
 
     def convert_duration_to_number(self, duration):
         if duration:
@@ -82,7 +117,23 @@ class FilmDetailSerializer(serializers.ModelSerializer):
         representation['video_url'] = representation.pop('video')
         representation['cover_image_url'] = representation.pop('cover_image')
         representation['duration'] = self.convert_duration_to_number(representation['duration'])
-        return representation
+        
+        data_order = {
+            'id': representation.get('id'),
+            'title': representation.get('title'),
+            'description': representation.get('description'),
+            'director': representation.get('director'),
+            'release_year': representation.get('release_year'),
+            'genre': representation.get('genre'),
+            'price': representation.get('price'),
+            'duration': representation.get('duration'),
+            'video_url': representation.get('video_url'),
+            'cover_image_url': representation.get('cover_image_url'),
+            'created_at': representation.get('created_at'),
+            'updated_at': representation.get('updated_at')
+        }
+
+        return data_order
 
     def convert_duration_to_number(self, duration):
         if duration:
@@ -143,7 +194,28 @@ class FilmUpdateSerializer(serializers.ModelSerializer):
         representation.pop('video', None)
         representation.pop('cover_image', None)
 
-        return representation
+        duration_str = representation.get('duration')
+        if duration_str:
+            hours, minutes, seconds = map(int, duration_str.split(':'))
+            duration_in_seconds = hours * 3600 + minutes * 60 + seconds
+            representation['duration'] = duration_in_seconds
+
+        data_order = {
+            'id': representation.get('id'),
+            'title': representation.get('title'),
+            'description': representation.get('description'),
+            'director': representation.get('director'),
+            'release_year': representation.get('release_year'),
+            'genre': representation.get('genre'),
+            'price': representation.get('price'),
+            'duration': representation.get('duration'),
+            'video_url': representation.get('video_url'),
+            'cover_image_url': representation.get('cover_image_url'),
+            'created_at': representation.get('created_at'),
+            'updated_at': representation.get('updated_at')
+        }
+
+        return data_order
     
 class FilmDeleteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -157,8 +229,19 @@ class FilmDeleteSerializer(serializers.ModelSerializer):
         representation['video_url'] = instance.video.url if instance.video else None
 
         representation.pop('video', None)
-        
-        return representation
+        data_order = {
+            'id': representation.get('id'),
+            'title': representation.get('title'),
+            'description': representation.get('description'),
+            'director': representation.get('director'),
+            'release_year': representation.get('release_year'),
+            'genre': representation.get('genre'),
+            'video_url': representation.get('video_url'),
+            'created_at': representation.get('created_at'),
+            'updated_at': representation.get('updated_at')
+        }
+
+        return data_order
  
 class AdminLoginSerializer(serializers.Serializer):
     username = serializers.CharField()

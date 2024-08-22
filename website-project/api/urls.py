@@ -1,4 +1,4 @@
-from .views import FilmAPIDetailView, LoginAPIView, FilmAPIListCreateView, UserListAPIView, UserAPIDetailView, UserBalanceUpdateView, UserDeleteView, SelfRetrieveView
+from .views import FilmAPIDetailView, LoginAPIView, FilmAPIListCreateView, UserListAPIView, UserAPIDetailView, UserBalanceUpdateView, SelfRetrieveView
 from django.urls import path
 
 
@@ -10,5 +10,4 @@ urlpatterns = [
     path('users/', UserListAPIView.as_view(), name='api-user-list'),
     path('users/<int:pk>/', UserAPIDetailView.as_view(), name='api-user-detail'),
     path('users/<int:pk>/balance/', UserBalanceUpdateView.as_view(), name='api-user-balance-update'),
-    path('users/<int:pk>/delete/', UserDeleteView.as_view(), name='api-user-delete'),
 ]

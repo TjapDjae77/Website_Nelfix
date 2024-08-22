@@ -6,23 +6,6 @@
 {% endblock title %}
 
 {% block contents %}
-    {% comment %} <h1 class="text-3xl font-bold mb-4">My List</h1>
-    {% if films %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {% for film in films %}
-                <a href="{% url 'film:film_detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img src="{% static film.cover_image_url %}" alt="{{ film.title }}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">{{ film.title }}</h2>
-                        <p class="text-gray-600">{{ film.release_year }}</p>
-                        <p class="mt-2">{{ film.description|truncatewords:20 }}</p>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>You haven't purchased any films yet.</p>
-    {% endif %} {% endcomment %}
     <nav class="bg-gray-800 p-4 mb-6">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Bagian Kiri -->
@@ -58,9 +41,9 @@
 
     <!-- My List Content -->
     <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-6">My List</h1>
+        <h1 class="text-3xl font-bold mb-6 ml-2">My List</h1>
 
-        {% if films %}
+        {% if films.exists %}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
                 {% for film in films %}
                     <a href="{% url 'film:film_detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
@@ -90,7 +73,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p class="text-white">You have not purchased any films yet.</p>
+            <p class="font-normal ml-2">You have not purchased any films yet.</p>
         {% endif %}
     </div>
 {% endblock contents %}

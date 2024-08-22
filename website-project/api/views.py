@@ -227,6 +227,28 @@ class UserAPIDetailView(RetrieveAPIView):
             'message': 'User details retrieved successfully',
             'data': serializer.data
         }, status=status.HTTP_200_OK)
+    
+    def delete(self, request, *args, **kwargs):
+        user_id = kwargs.get('pk')
+        user = get_object_or_404(User, pk=user_id)
+        profile = get_object_or_404(Profile, user=user)
+        
+        # Serialize the profile data
+        profile_data = {
+            "id": str(profile.user.id),
+            "username": profile.user.username,
+            "email": profile.user.email,
+            "balance": profile.balance
+        }
+        
+        # Delete the user
+        user.delete()
+        
+        return Response({
+            "status": "success",
+            "message": "User deleted successfully",
+            "data": profile_data
+        }, status=status.HTTP_200_OK)
 
 class UserBalanceUpdateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -267,32 +289,7 @@ class UserBalanceUpdateView(APIView):
             "message": "Balance updated successfully",
             "data": user_data
         }, status=status.HTTP_200_OK)
-
-class UserDeleteView(APIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
-
-    def delete(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = get_object_or_404(User, pk=user_id)
-        profile = get_object_or_404(Profile, user=user)
-        
-        # Serialize the profile data
-        profile_data = {
-            "id": str(profile.user.id),
-            "username": profile.user.username,
-            "email": profile.user.email,
-            "balance": profile.balance
-        }
-        
-        # Delete the user
-        user.delete()
-        
-        return Response({
-            "status": "success",
-            "message": "User deleted successfully",
-            "data": profile_data
-        }, status=status.HTTP_200_OK)
-
+  
 class SelfRetrieveView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
