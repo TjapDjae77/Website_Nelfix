@@ -146,26 +146,26 @@ class UserLoginView(LoginView):
 #             }, status=status.HTTP_200_OK)
 #         return Response({'status': 'error', 'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-class LoginAPIView(APIView):
-    permission_classes = [AllowAny]
+# class LoginAPIView(APIView):
+#     permission_classes = [AllowAny]
 
-    def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(username=username, password=password)
+#     def post(self, request, *args, **kwargs):
+#         username = request.data.get('username')
+#         password = request.data.get('password')
+#         user = authenticate(username=username, password=password)
 
-        if user is not None:
-            refresh = RefreshToken.for_user(user)
-            return JsonResponse({
-                'status': 'success',
-                'message': 'Login successful',
-                'data': {
-                    'username': user.username,
-                    'access_token': str(refresh.access_token),
-                    'refresh_token': str(refresh),
-                }
-            }, status=200)
-        return JsonResponse({'status': 'error', 'message': 'Invalid credentials'}, status=401)
+#         if user is not None:
+#             refresh = RefreshToken.for_user(user)
+#             return JsonResponse({
+#                 'status': 'success',
+#                 'message': 'Login successful',
+#                 'data': {
+#                     'username': user.username,
+#                     'access_token': str(refresh.access_token),
+#                     'refresh_token': str(refresh),
+#                 }
+#             }, status=200)
+#         return JsonResponse({'status': 'error', 'message': 'Invalid credentials'}, status=401)
     
 class SelfView(APIView):
     permission_classes = [IsAuthenticated]

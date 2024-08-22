@@ -51,34 +51,18 @@
     <h1 class="text-3xl font-bold mb-6">Browse Films</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
         {% for film in films %}
-            <a href="{% url 'film:film-detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                {% comment %} <img src="{% static film.cover_image_url %}" alt="{{ film.title }}" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">{{ film.title }}</h2>
-                    <p class="text-gray-600">Director: {{ film.director }}</p>
-                    <p class="text-gray-600">Genre: {{ film.genre }}</p>
-                    <p class="text-gray-600">Year: {{ film.release_year }}</p>
-                    <p class="text-gray-600">{{ film.price }}🪙</p>
-                    <div class="mt-4">
-                        {% if user.is_authenticated %}
-                            {% if film in user.profile.films.all %}
-                                <p class="text-green-500 font-semibold">Already purchased</p>
-                            {% else %}
-                                <p class="text-red-600 font-bold">Not Purchased</p>
-                            {% endif %}
-                        {% else %}
-                            <p class="text-red-600 font-bold">Not Purchased</p>
-                        {% endif %}
-                    </div>
-                </div> {% endcomment %}
+            <a href="{% url 'film:film_detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 <div class="group relative bg-gray-800 text-white p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                    <img src="{{ film.cover_image.url }}" alt="{{ film.title }}" class="w-full h-48 object-cover rounded-lg">
+                    {% if film.cover_image %}
+                        <img src="{{ film.cover_image.url }}" alt="{{ film.title }}" class="w-full h-48 object-cover rounded-lg">
+                    {% else %}
+                        <div class="w-full h-48 bg-gray-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-lg font-semibold">No Image</span>
+                        </div>
+                    {% endif %}
                     <div class="mt-4">
                         <h2 class="text-lg font-semibold">{{ film.title }} ({{ film.release_year }})</h2>
                         <div class="flex space-x-2 mt-2">
-                            {% comment %} {% for genre in film.genre.all %}
-                                <span class="bg-gray-600 text-sm rounded-full px-2 py-1">{{ genre.name }}</span>
-                            {% endfor %} {% endcomment %}
                             {% for genre in film.genre %}
                                 <span class="bg-gray-600 text-sm rounded-full px-2 py-1">{{ genre }}</span>
                             {% endfor %}

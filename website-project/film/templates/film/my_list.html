@@ -61,21 +61,9 @@
         <h1 class="text-3xl font-bold mb-6">My List</h1>
 
         {% if films %}
-            {% comment %} <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {% for film in films %}
-                    <div class="bg-gray-800 text-white p-4 rounded-lg shadow-lg">
-                        <img src="{% static film.cover_image_url %}" alt="{{ film.title }}" class="mb-4 w-full h-48 object-cover rounded-lg">
-                        <h2 class="text-lg font-bold">{{ film.title }} ({{ film.release_year }})</h2>
-                        <p class="mt-2">Directed by: {{ film.director }}</p>
-                        <a href="{% url 'film:film_detail' film.id %}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
-                            View Details
-                        </a>
-                    </div>
-                {% endfor %}
-            </div> {% endcomment %}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
                 {% for film in films %}
-                    <a href="{% url 'film:film-detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <a href="{% url 'film:film_detail' film.id %}" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <div class="group relative bg-gray-800 text-white p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
                             <img src="{{ film.cover_image.url }}" alt="{{ film.title }}" class="w-full h-48 object-cover rounded-lg">
                             <div class="mt-4">

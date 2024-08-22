@@ -10,7 +10,7 @@ class Film(models.Model):
     price = models.IntegerField()
     duration = models.DurationField()
     video = models.FileField(upload_to='videos/')
-    cover_image = models.ImageField(upload_to='images/', blank=True, null=True)
+    cover_image = models.FileField(upload_to='images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
