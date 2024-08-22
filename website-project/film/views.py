@@ -124,29 +124,6 @@ class FilmDetailView(DetailView):
         return context
 
 
-class FilmAPIDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = Film.objects.all()
-    serializer_class = FilmSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request, *args, **kwargs):
-        film = self.get_object()
-        serializer = self.get_serializer(film)
-        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
-
-    def put(self, request, *args, **kwargs):
-        film = self.get_object()
-        serializer = self.get_serializer(film, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"status": "success", "message": "Film updated successfully", "data": serializer.data}, status=status.HTTP_200_OK)
-        return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, *args, **kwargs):
-        film = self.get_object()
-        film.delete()
-        return Response({"status": "success", "message": "Film deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-
 @login_required
 def buy_film(request, pk):
     film = get_object_or_404(Film, pk=pk)

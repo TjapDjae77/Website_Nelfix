@@ -1,60 +1,3 @@
-# from django.contrib import messages
-# from django.contrib.auth import login, authenticate
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.views import LoginView, LogoutView
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.urls import reverse_lazy
-# from django.utils.decorators import method_decorator
-# from django.views.generic import CreateView, DetailView
-# from .forms import UserRegisterForm, UserLoginForm
-# from .models import Profile
-
-# # Create your views here.
-
-
-# class UserRegisterView(CreateView):
-#     form_class = UserRegisterForm
-#     template_name = 'user/register.html'
-#     success_url = reverse_lazy('user:login')
-    
-#     def form_valid(self, form):
-#         user = form.save()
-#         Profile.objects.create(user=user)
-#         login(self.request, user)
-#         return redirect(self.success_url)
-
-# class UserLoginView(LoginView):
-#     form_class = UserLoginForm
-#     template_name = 'user/login.html'
-
-#     def form_valid(self, form):
-#         user = form.get_user()
-#         if user is not None and user.check_password(form.cleaned_data['password']):
-#             login(self.request, user)
-#             return redirect('film:home')  # Redirect ke halaman profil setelah login berhasil
-#         return super().form_invalid(form)
-    
-#     def form_invalid(self, form):
-#         # Menambahkan pesan kesalahan jika autentikasi gagal
-#         print("Username atau password salah.")
-#         messages.error(self.request, "Username atau password salah.")
-#         return self.render_to_response(self.get_context_data(form=form))
-
-# @method_decorator(login_required, name='dispatch')
-# class UserProfileView(LoginRequiredMixin, DetailView):
-#     model = Profile
-#     template_name = 'user/profile.html'
-#     context_object_name = 'profile'
-
-#     def get_object(self):
-#         try:
-#             profile = Profile.objects.get(user=self.request.user)
-#         except Profile.DoesNotExist:
-#             return redirect('user:login')  # Redirect ke halaman untuk membuat profil jika tidak ada
-#         return profile
-
-
 from .forms import UserRegisterForm, UserLoginForm
 from .models import Profile
 from .serializers import AdminLoginSerializer, UserSerializer, ProfileSerializer
@@ -128,44 +71,6 @@ class UserLoginView(LoginView):
         else:
             messages.error(request, "Invalid username or password.")
             return render(request, self.template_name, {'form': form})
-
-# class LoginView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             refresh = RefreshToken.for_user(user)
-#             return Response({
-#                 'status': 'success',
-#                 'message': 'Login successful',
-#                 'data': {
-#                     'username': user.username,
-#                     'token': str(refresh.access_token),
-#                 }
-#             }, status=status.HTTP_200_OK)
-#         return Response({'status': 'error', 'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-# class LoginAPIView(APIView):
-#     permission_classes = [AllowAny]
-
-#     def post(self, request, *args, **kwargs):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         user = authenticate(username=username, password=password)
-
-#         if user is not None:
-#             refresh = RefreshToken.for_user(user)
-#             return JsonResponse({
-#                 'status': 'success',
-#                 'message': 'Login successful',
-#                 'data': {
-#                     'username': user.username,
-#                     'access_token': str(refresh.access_token),
-#                     'refresh_token': str(refresh),
-#                 }
-#             }, status=200)
-#         return JsonResponse({'status': 'error', 'message': 'Invalid credentials'}, status=401)
     
 class SelfView(APIView):
     permission_classes = [IsAuthenticated]

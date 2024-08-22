@@ -6,63 +6,6 @@
 {% endblock title %}
 
 {% block contents %}
-    {% comment %} <div class="min-h-screen bg-gray-600 flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Profile</h2>
-            <div class="mb-4">
-                <label class="block text-base font-medium text-gray-700">Username</label>
-                <p class=" p-2 rounded-md">{{ profile.user.username }}</p>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-base font-medium text-gray-700">Balance</label>
-                <p class=" p-2 rounded-md">{{ profile.balance }}</p>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-base font-medium text-gray-700">Email</label>
-                <p class=" p-2 rounded-md">{{ profile.user.email }}</p>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-base font-medium text-gray-700">Bio</label>
-                <p class=" p-2 rounded-md">{{ profile.bio }}</p>
-            </div>
-            <form method="POST" action="{% url 'user:logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 text-center block mt-4">
-                    Logout
-                </button>
-            </form>
-        </div>
-    </div> {% endcomment %}
-
-
-    {% comment %} <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-4">Profile</h1>
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Balance:</strong> {{ user.profile.balance }}🪙</p>
-            <div class="mt-6">
-                <a href="{% url 'film:home' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Home</a>
-                <a href="{% url 'film:my_list' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">My List</a>
-            </div>
-        </div>
-    </div> {% endcomment %}
-
-
-    {% comment %} <nav class="bg-gray-800 p-4 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Profile</h1>
-            <div>
-                <a href="{% url 'film:home' %}" class="hover:text-gray-400">Home</a>
-                <a href="{% url 'film:my_list' %}" class="ml-4 hover:text-gray-400">My List</a>
-                <a href="{% url 'user:logout' %}" class="ml-4 bg-red-600 py-2 px-4 rounded hover:bg-red-700">Logout</a>
-            </div>
-        </div>
-    </nav> {% endcomment %}
-
     <nav class="bg-gray-800 p-4 mb-6">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Bagian Kiri -->
