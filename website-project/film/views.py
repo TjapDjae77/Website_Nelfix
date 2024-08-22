@@ -56,8 +56,6 @@ class FilmViewSet(viewsets.ModelViewSet):
             instance.video_url.delete(save=False)
         super().perform_destroy(instance)
 
-
-
 class FilmListView(ListView):
     model = Film
     template_name = 'film/home.html'
@@ -101,9 +99,6 @@ class FilmListView(ListView):
         context['is_paginated'] = is_paginated
         context['pagination_url'] = self.get_pagination_url
         return self.render_to_response(context)
-
-
-
 
 class FilmDetailView(DetailView):
     model = Film

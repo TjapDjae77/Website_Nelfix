@@ -1,5 +1,5 @@
 from . import views
-from .views import FilmListCreateView, FilmViewSet, FilmListView, FilmDetailView, FilmAPIDetailView, buy_film
+from .views import FilmListCreateView, FilmViewSet, FilmListView, FilmDetailView, buy_film
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
