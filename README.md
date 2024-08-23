@@ -5,6 +5,7 @@
  Untuk menjalankan websitenya:
  1. Jalankan Env\Scripts\activate.bat untuk masuk ke environment
  2. Lalu masuk ke cd website-project dan lakukan python manage.py runserver
+ 3. Untuk login ke akun admin bisa dengan login dengan username "admin" dan passwordnya "admin123"
 
  Design pattern yang saya gunakan adalah Template Method, Factory, Decorator, dan Strategy. 
  1. Template method dipakai untuk mendefinisikan alur umum dari suatu proses dalam superclass, sedangkan detail dari implementasinya bisa diubah sama subclass tanpa mengubah struktur algoritmanya, contohnya di FilmListView bisa definisiin get_query() dan filter_queryset() di subclass.
